@@ -14,10 +14,10 @@ class ProductViewModel: ViewModel(){
     val state: StateFlow<ProductUiState> = _state
 
     init {
-        loadingProducts()
+        loadProducts()
     }
 
-    private fun loadingProducts() {
+     fun loadProducts() {
 
         viewModelScope.launch {
             _state.value = ProductUiState.Loading
