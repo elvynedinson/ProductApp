@@ -1,11 +1,16 @@
 package com.evydev.productapp.ui.screen
 
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.ui.Alignment
+import androidx.compose.ui.Modifier
 import androidx.lifecycle.viewmodel.compose.viewModel
 import coil.compose.AsyncImage
 import com.evydev.productapp.data.model.Product
@@ -21,7 +26,12 @@ fun ProductScreen(
 
     when(state){
         is ProductUiState.Loading ->{
-            Text("Cargando Productos...")
+            Box(
+                modifier = Modifier.fillMaxSize(),
+                contentAlignment = Alignment.Center
+            ){
+                CircularProgressIndicator()
+            }
         }
 
         is ProductUiState.Success -> {
