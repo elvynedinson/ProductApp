@@ -38,6 +38,7 @@ android {
 }
 
 dependencies {
+    implementation(libs.androidx.lifecycle.viewmodel.compose)
     implementation(libs.retrofit.main)
     implementation(libs.retrofit.gson)
     implementation(libs.androidx.core.ktx)
