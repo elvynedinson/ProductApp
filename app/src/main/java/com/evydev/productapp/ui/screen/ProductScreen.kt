@@ -7,6 +7,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.lifecycle.viewmodel.compose.viewModel
+import coil.compose.AsyncImage
 import com.evydev.productapp.data.model.Product
 import com.evydev.productapp.ui.state.ProductUiState
 import com.evydev.productapp.ui.viewmodel.ProductViewModel
@@ -40,8 +41,14 @@ fun ProductList(products: List<Product>){
     LazyColumn{
         items(products) { product ->
             Text(
-                text = "${product.title} - ${product.price} - ${product.image}"
+                text = "${product.title} - ${product.price}"
             )
+
+            AsyncImage(
+                model = product.image,
+                contentDescription = product.title
+            )
+
         }
     }
 }
