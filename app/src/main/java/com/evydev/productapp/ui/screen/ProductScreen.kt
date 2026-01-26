@@ -9,6 +9,7 @@ import androidx.compose.runtime.getValue
 import androidx.lifecycle.viewmodel.compose.viewModel
 import coil.compose.AsyncImage
 import com.evydev.productapp.data.model.Product
+import com.evydev.productapp.ui.components.ProductItem
 import com.evydev.productapp.ui.state.ProductUiState
 import com.evydev.productapp.ui.viewmodel.ProductViewModel
 
@@ -36,19 +37,11 @@ fun ProductScreen(
 }
 
 @Composable
-fun ProductList(products: List<Product>){
+fun ProductList(products: List<Product>) {
 
-    LazyColumn{
+    LazyColumn {
         items(products) { product ->
-            Text(
-                text = "${product.title} - ${product.price}"
-            )
-
-            AsyncImage(
-                model = product.image,
-                contentDescription = product.title
-            )
-
+            ProductItem(product)
         }
     }
 }
