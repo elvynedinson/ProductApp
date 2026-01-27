@@ -2,13 +2,15 @@ package com.evydev.productapp.ui.viewmodel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.evydev.productapp.data.remote.RetrofitClient.api
+import com.evydev.productapp.data.repository.ProductRepository
 import com.evydev.productapp.ui.state.ProductUiState
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 
-class ProductViewModel: ViewModel(){
+class ProductViewModel(
+    private val repository: ProductRepository
+): ViewModel(){
 
     private val _state = MutableStateFlow<ProductUiState>(ProductUiState.Loading)
     val state: StateFlow<ProductUiState> = _state
@@ -23,7 +25,7 @@ class ProductViewModel: ViewModel(){
             _state.value = ProductUiState.Loading
 
             try {
-                val products = api.getProducts()
+                val products = repository.getProducts()
                 _state.value = ProductUiState.Success(products)
 
             }catch (e: Exception){

@@ -1,6 +1,5 @@
 package com.evydev.productapp.ui.screen
 
-import android.widget.Button
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
@@ -16,13 +15,21 @@ import androidx.compose.ui.Modifier
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.compose.ui.Alignment
 import com.evydev.productapp.data.model.Product
+import com.evydev.productapp.data.remote.RetrofitClient
+import com.evydev.productapp.data.repository.ProductRepository
 import com.evydev.productapp.ui.components.ProductItem
 import com.evydev.productapp.ui.state.ProductUiState
 import com.evydev.productapp.ui.viewmodel.ProductViewModel
+import com.evydev.productapp.ui.viewmodel.ProductViewModelFactory
+import retrofit2.Retrofit
 
 @Composable
 fun ProductScreen(
-    viewModel: ProductViewModel = viewModel()
+    viewModel: ProductViewModel = viewModel(
+        factory = ProductViewModelFactory(
+            ProductRepository(RetrofitClient.api)
+        )
+    )
 ){
     val state by viewModel.state.collectAsState()
 
@@ -56,16 +63,12 @@ fun ProductScreen(
                     }
                 }
             }
-
-
-
         }
     }
 }
 
 @Composable
 fun ProductList(products: List<Product>) {
-
     LazyColumn {
         items(products) { product ->
             ProductItem(product)
